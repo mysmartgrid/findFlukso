@@ -32,8 +32,12 @@
 #include <stdbool.h>
 #include <map>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <pthread.h>
 #include <string.h>
+
+#define DEBUG
 
 extern "C" {
 	static char* list;
@@ -68,10 +72,10 @@ extern "C" {
 			char* filename);
 }
 
-std::map<char*, char*> ip_map;
+std::map<std::string, std::string> ip_map;
 
 static sw_result HOWL_API
-my_resolver(
+add_resolver(
 				sw_discovery		discovery,
 				sw_discovery_oid	oid,
 				sw_uint32		interface_index,
@@ -94,43 +98,53 @@ my_resolver(
 
 	sw_discovery_cancel(discovery, oid);
 	
-	char* ip_address = (char*) sw_ipv4_address_name(address, (char*) name_buf, 16);
-	ip_map[ip_address] = (char*) name_buf;
-	//printf("[DEBUG] ip_address: %s\n", ip_address);
+	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
+	ip_map[ip_address] = (std::string) name;
 
-	//printf("[DEBUG] Name: %s\n", name);
-	//printf("[DEBUG] strlen: %d - %d\n", strlen(list), strlen(name));
-
-	char* new_list = (char*) malloc(strlen(list)+strlen(name)+18);
-	strcpy(new_list, list);
-	int length = strlen(list);
-
-	//printf("[DEBUG] newlist: %u; %s\n", new_list, new_list);
-	strcpy(new_list + length, name);
-
-	//printf("[DEBUG] new_list: %s\n", new_list);
-	length += strlen(name);
-	strcpy(new_list + length, "\t");
-
-	//printf("[DEBUG] new_list: %s\n", new_list);
-	length += 1;
-	strcpy(new_list + length, ip_address);
-
-	//printf("[DEBUG] new_list: %s\n", new_list);
-	length += strlen(ip_address);
-	strcpy(new_list + length, "\n");
-
-	free(list);
-	
-	list = new_list;
-	//printf("[DEBUG] list: %u; %s\n", list, list);
-	//printf("Device found: %s", list);
+	#ifdef DEBUG
+	std::cout << name << "(" << ip_address << ") added." << std::endl;
+	#endif
 
 exit:
 
 	return err;
 }
 
+static sw_result HOWL_API
+rem_resolver(
+				sw_discovery		discovery,
+				sw_discovery_oid	oid,
+				sw_uint32		interface_index,
+				sw_const_string		name,
+				sw_const_string		type,
+				sw_const_string		domain,
+				sw_ipv4_address		address,
+				sw_port			port,
+				sw_octets		text_record,
+				sw_uint32		text_record_len,
+				sw_opaque_t		extra)
+{
+	sw_text_record_iterator				it;
+	sw_int8						name_buf[16];
+	sw_int8						key[SW_TEXT_RECORD_MAX_LEN];
+	sw_int8						sval[SW_TEXT_RECORD_MAX_LEN];
+	sw_uint8					oval[SW_TEXT_RECORD_MAX_LEN];
+	sw_uint32					oval_len;
+	sw_result					err = SW_OKAY;
+
+	sw_discovery_cancel(discovery, oid);
+	
+	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
+	ip_map.erase(ip_address);
+
+	#ifdef DEBUG
+	std::cout << name << "(" << ip_address << ") removed." << std::endl;
+	#endif
+
+exit:
+
+	return err;
+}
 
 static sw_result HOWL_API
 my_browser(
@@ -145,16 +159,46 @@ my_browser(
 {
 	sw_discovery_resolve_id rid;
 
+	#ifdef DEBUG
+		switch (status)
+		{
+			case SW_DISCOVERY_BROWSE_INVALID:
+				std::cout << "result: browse invalid" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_RELEASE:
+				std::cout << "result: browse release" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_ADD_DOMAIN:
+				std::cout << "result: browse add domain (" << domain << ")" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_ADD_DEFAULT_DOMAIN:
+				std::cout << "result: browse add default domain (" << domain << ")" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_REMOVE_DOMAIN:
+				std::cout << "result: browse remove domain (" << domain << ")" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_ADD_SERVICE:
+				std::cout << "result: browse add service (" << name << "[" << type << "])" << std::endl;
+				break;
+			case SW_DISCOVERY_BROWSE_REMOVE_SERVICE:
+				std::cout << "result: browse remove service (" << name << "[" << type << "])" << std::endl;
+				break;
+		}
+	#endif
+
 	if (status == SW_DISCOVERY_BROWSE_ADD_SERVICE)
 	{
-		if (sw_discovery_resolve(discovery, interface_index, name, type, domain, my_resolver, extra, &rid) != SW_OKAY)
+		if (sw_discovery_resolve(discovery, interface_index, name, type, domain, add_resolver, extra, &rid) != SW_OKAY)
 		{
 			fprintf(stderr, "resolve failed\n");
 		}
 	}
 	else if (status == SW_DISCOVERY_BROWSE_REMOVE_SERVICE)
 	{
-		printf("%s removed\n", name);
+		if (sw_discovery_resolve(discovery, interface_index, name, type, domain, rem_resolver, extra, &rid) != SW_OKAY)
+		{
+			fprintf(stderr, "resolve failed\n");
+		}
 	}
 
 	return SW_OKAY;
@@ -190,27 +234,28 @@ int findFlukso(
 
 	while (run)
 	{
-		list = (char*) malloc(1);
-		strcpy(list, "");
-
-
-		/*err = sw_discovery_run(discovery);*/
-		/*sw_check_okay(err, exit);*/
-
-		//printf("[DEBUG] list: %s", list, list);
-
 		sw_salt_step(salt, &timeout);
 
-		FILE *file;
-		file = fopen(filename, "w");
-		if(file)
-		{
-			fprintf(file, list);
-			printf(list);
+		/*FILE *file;*/
+		/*file = fopen(filename, "w");*/
+		/*if(file)*/
+		/*{*/
+			/*fprintf(file, list);*/
+			/*printf(list);*/
+			std::ofstream file;
+			file.open(filename);
 			std::cout << "Map size: " << ip_map.size() << std::endl;
-			free(list);
-			fclose(file);
-		}
+			for (std::map<std::string, std::string>::iterator ii=ip_map.begin(); ii!=ip_map.end(); ++ii)
+			{
+				#ifdef DEBUG
+					std::cout << (*ii).first << ":" << (*ii).second << std::endl;
+				#endif
+				file << (*ii).first << ":" << (*ii).second << std::endl;
+			}
+			file.close();
+			/*free(list);*/
+			/*fclose(file);*/
+		/*}*/
 	}
 
 	return 0;
