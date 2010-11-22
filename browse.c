@@ -66,11 +66,11 @@ extern "C" {
 					sw_const_string				type,
 					sw_const_string				domain,
 					sw_opaque_t				extra);
+}
 
-	int findFlukso(
+int findFlukso(
 			char* type,
 			char* filename);
-}
 
 std::map<std::string, std::string> ip_map;
 
@@ -190,14 +190,16 @@ my_browser(
 	{
 		if (sw_discovery_resolve(discovery, interface_index, name, type, domain, add_resolver, extra, &rid) != SW_OKAY)
 		{
-			fprintf(stderr, "resolve failed\n");
+			std::cerr << "resolve failed" << std::endl;
+			/*fprintf(stderr, "resolve failed\n");*/
 		}
 	}
 	else if (status == SW_DISCOVERY_BROWSE_REMOVE_SERVICE)
 	{
 		if (sw_discovery_resolve(discovery, interface_index, name, type, domain, rem_resolver, extra, &rid) != SW_OKAY)
 		{
-			fprintf(stderr, "resolve failed\n");
+			std::cerr << "resolve failed" << std::endl;
+			/*fprintf(stderr, "resolve failed\n");*/
 		}
 	}
 
@@ -213,14 +215,7 @@ int findFlukso(
 	sw_result			err;
 	bool run = true;
 
-	sw_ulong timeout = 10000; //in msecs
-
-	/*pthread_t tid;*/
-	/*int result = pthread_create(&tid, NULL, thread_run, &discovery);*/
-	/*printf("RESULT: %d", result);*/
-
-	/*if ( result != 0 )*/
-		/*run = false;*/
+	sw_ulong timeout = 5000; //in msecs
 
 	err = sw_discovery_init(&discovery);
 	sw_check_okay(err, exit);
@@ -236,26 +231,17 @@ int findFlukso(
 	{
 		sw_salt_step(salt, &timeout);
 
-		/*FILE *file;*/
-		/*file = fopen(filename, "w");*/
-		/*if(file)*/
-		/*{*/
-			/*fprintf(file, list);*/
-			/*printf(list);*/
-			std::ofstream file;
-			file.open(filename);
-			std::cout << "Map size: " << ip_map.size() << std::endl;
-			for (std::map<std::string, std::string>::iterator ii=ip_map.begin(); ii!=ip_map.end(); ++ii)
-			{
-				#ifdef DEBUG
-					std::cout << (*ii).first << ":" << (*ii).second << std::endl;
-				#endif
-				file << (*ii).first << ":" << (*ii).second << std::endl;
-			}
-			file.close();
-			/*free(list);*/
-			/*fclose(file);*/
-		/*}*/
+		std::ofstream file;
+		file.open(filename);
+		std::cout << "Map size: " << ip_map.size() << std::endl;
+		for (std::map<std::string, std::string>::iterator ii=ip_map.begin(); ii!=ip_map.end(); ++ii)
+		{
+			#ifdef DEBUG
+				std::cout << (*ii).first << ":" << (*ii).second << std::endl;
+			#endif
+			file << (*ii).first << ":" << (*ii).second << std::endl;
+		}
+		file.close();
 	}
 
 	return 0;
@@ -268,14 +254,13 @@ main(
 	int		argc,
 	char	**	argv)
 {
-	//fprintf(stderr, "[DEBUG] argc: %d\n", argc);
 	if (argc == 3)
 	{
 		return findFlukso(argv[1], argv[2]);
 	}
 	else
 	{
-		printf("Usage: findFlukso [service] [file]\n");
+		std::cout << "Usage: findFlukso [service] [file]" << std::endl;
 	}
 
 exit:
