@@ -30,10 +30,45 @@
 #include <salt/debug.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <map>
+#include <iostream>
 #include <pthread.h>
 #include <string.h>
 
-static char* list;
+extern "C" {
+	static char* list;
+
+	static sw_result HOWL_API
+	my_resolver(
+					sw_discovery		discovery,
+					sw_discovery_oid	oid,
+					sw_uint32		interface_index,
+					sw_const_string		name,
+					sw_const_string		type,
+					sw_const_string		domain,
+					sw_ipv4_address		address,
+					sw_port			port,
+					sw_octets		text_record,
+					sw_uint32		text_record_len,
+					sw_opaque_t		extra);
+
+	static sw_result HOWL_API
+	my_browser(
+					sw_discovery				discovery,
+					sw_discovery_oid			oid,
+					sw_discovery_browse_status		status,
+					sw_uint32				interface_index,
+					sw_const_string				name,
+					sw_const_string				type,
+					sw_const_string				domain,
+					sw_opaque_t				extra);
+
+	int findFlukso(
+			char* type,
+			char* filename);
+}
+
+std::map<char*, char*> ip_map;
 
 static sw_result HOWL_API
 my_resolver(
@@ -59,7 +94,8 @@ my_resolver(
 
 	sw_discovery_cancel(discovery, oid);
 	
-	char* ip_address = (char*) sw_ipv4_address_name(address, name_buf, 16);
+	char* ip_address = (char*) sw_ipv4_address_name(address, (char*) name_buf, 16);
+	ip_map[ip_address] = (char*) name_buf;
 	//printf("[DEBUG] ip_address: %s\n", ip_address);
 
 	//printf("[DEBUG] Name: %s\n", name);
@@ -133,6 +169,8 @@ int findFlukso(
 	sw_result			err;
 	bool run = true;
 
+	sw_ulong timeout = 10000; //in msecs
+
 	/*pthread_t tid;*/
 	/*int result = pthread_create(&tid, NULL, thread_run, &discovery);*/
 	/*printf("RESULT: %d", result);*/
@@ -150,8 +188,6 @@ int findFlukso(
 	err = sw_discovery_browse(discovery, 0, type, NULL, my_browser, NULL, &oid);
 	sw_check_okay(err, exit);
 
-	sw_ulong timeout = 1000; //in msecs
-
 	while (run)
 	{
 		list = (char*) malloc(1);
@@ -167,12 +203,14 @@ int findFlukso(
 
 		FILE *file;
 		file = fopen(filename, "w");
-		if(!file)
-			break;
-		fprintf(file, list);
-		printf(list);
-		free(list);
-		fclose(file);
+		if(file)
+		{
+			fprintf(file, list);
+			printf(list);
+			std::cout << "Map size: " << ip_map.size() << std::endl;
+			free(list);
+			fclose(file);
+		}
 	}
 
 	return 0;
@@ -181,11 +219,6 @@ exit:
 	return 1;
 }
 
-#if defined(WIN32)
-int __cdecl
-#else
-int
-#endif
 main(
 	int		argc,
 	char	**	argv)

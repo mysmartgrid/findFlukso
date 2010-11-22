@@ -11,16 +11,14 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
  /usr/include/bits/pthreadtypes.h /usr/include/stdlib.h \
  /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/alloca.h /usr/include/unistd.h \
+ /usr/include/xlocale.h /usr/include/alloca.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h /usr/include/string.h \
- /usr/include/xlocale.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h /usr/include/signal.h \
- /usr/include/bits/signum.h /usr/include/bits/siginfo.h \
- /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
- /usr/include/bits/sigstack.h /usr/include/sys/ucontext.h \
- /usr/include/bits/sigthread.h /usr/include/sys/socket.h \
- /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/signal.h /usr/include/bits/signum.h \
+ /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
+ /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
+ /usr/include/sys/ucontext.h /usr/include/bits/sigthread.h \
+ /usr/include/sys/socket.h /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
  /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
@@ -48,8 +46,77 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
  ../../../include/discovery/discovery.h \
  ../../../include/discovery/text_record.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stdbool.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/map \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_tree.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_algobase.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++config.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/os_defines.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/cpu_defines.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cstddef \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/functexcept.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/exception_defines.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/cpp_type_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/type_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/numeric_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_pair.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/move.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/concept_check.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator_base_types.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator_base_funcs.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/debug/debug.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/new_allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/new \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/exception \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_function.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/backward/binders.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_map.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/initializer_list \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_multimap.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/iostream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ostream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ios \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/iosfwd \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stringfwd.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/postypes.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cwchar \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/char_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/localefwd.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++locale.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/clocale \
+ /usr/include/locale.h /usr/include/bits/locale.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cctype \
+ /usr/include/ctype.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ios_base.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/atomicity.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/gthr.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/gthr-default.h \
  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
- /usr/include/bits/setjmp.h
+ /usr/include/bits/setjmp.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/atomic_word.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_classes.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/string \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ostream_insert.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cxxabi-forced.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_string.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_string.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_classes.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/streambuf \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/streambuf.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_ios.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_facets.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cwctype \
+ /usr/include/wctype.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/ctype_base.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/streambuf_iterator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/ctype_inline.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_facets.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_ios.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ostream.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/istream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/istream.tcc
 
 ../../../include/howl.h:
 
@@ -101,6 +168,8 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
 
 /usr/include/bits/waitstatus.h:
 
+/usr/include/xlocale.h:
+
 /usr/include/alloca.h:
 
 /usr/include/unistd.h:
@@ -114,12 +183,6 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
 /usr/include/getopt.h:
 
 /usr/include/string.h:
-
-/usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 /usr/include/signal.h:
 
@@ -247,6 +310,102 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
 
 /usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/include/stdbool.h:
 
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/map:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_tree.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_algobase.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++config.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/os_defines.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/cpu_defines.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cstddef:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/functexcept.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/exception_defines.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/cpp_type_traits.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/type_traits.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/numeric_traits.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_pair.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/move.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/concept_check.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator_base_types.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator_base_funcs.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_iterator.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/debug/debug.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/allocator.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++allocator.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/new_allocator.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/new:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/exception:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_function.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/backward/binders.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_map.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/initializer_list:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stl_multimap.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/iostream:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ostream:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ios:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/iosfwd:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/stringfwd.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/postypes.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cwchar:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/char_traits.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/localefwd.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/c++locale.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/bits/locale.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cctype:
+
+/usr/include/ctype.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ios_base.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/ext/atomicity.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/gthr.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/gthr-default.h:
+
 /usr/include/pthread.h:
 
 /usr/include/sched.h:
@@ -254,3 +413,47 @@ browse.o: browse.c ../../../include/howl.h ../../../include/salt/salt.h \
 /usr/include/bits/sched.h:
 
 /usr/include/bits/setjmp.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/atomic_word.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_classes.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/string:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ostream_insert.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cxxabi-forced.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_string.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_string.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_classes.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/streambuf:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/streambuf.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_ios.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_facets.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/cwctype:
+
+/usr/include/wctype.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/ctype_base.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/streambuf_iterator.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/x86_64-unknown-linux-gnu/bits/ctype_inline.h:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/locale_facets.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/basic_ios.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/ostream.tcc:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/istream:
+
+/usr/lib/gcc/x86_64-unknown-linux-gnu/4.5.1/../../../../include/c++/4.5.1/bits/istream.tcc:
