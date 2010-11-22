@@ -98,20 +98,20 @@ am__quote =
 install_sh = /scratchbox/users/stephan/home/stephan/howl-1.0.0.linspire1.2/install-sh
 INCLUDES = -I$(top_srcdir)/include/
 LDADD = $(top_srcdir)/src/lib/howl/libhowl.la $(PLATFORM_LIBS)
-bin_PROGRAMS = mDNSBrowse
-mDNSBrowse_SOURCES = browse.c
+bin_PROGRAMS = findFlukso
+findFlukso_SOURCES = findFlukso.cpp
 subdir = samples/console/browse
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/howl_config.h
 CONFIG_CLEAN_FILES =
-bin_PROGRAMS = mDNSBrowse$(EXEEXT)
+bin_PROGRAMS = findFlukso$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
-am_mDNSBrowse_OBJECTS = browse.$(OBJEXT)
-mDNSBrowse_OBJECTS = $(am_mDNSBrowse_OBJECTS)
-mDNSBrowse_LDADD = $(LDADD)
-mDNSBrowse_DEPENDENCIES = $(top_srcdir)/src/lib/howl/libhowl.la
-mDNSBrowse_LDFLAGS =
+am_findFlukso_OBJECTS = browse.$(OBJEXT)
+findFlukso_OBJECTS = $(am_findFlukso_OBJECTS)
+findFlukso_LDADD = $(LDADD)
+findFlukso_DEPENDENCIES = $(top_srcdir)/src/lib/howl/libhowl.la
+findFlukso_LDFLAGS =
 
 DEFS = -DHAVE_CONFIG_H
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/include
@@ -129,9 +129,9 @@ CCLD = $(CXX)
 LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 CFLAGS = -g -O2
-DIST_SOURCES = $(mDNSBrowse_SOURCES)
+DIST_SOURCES = $(findFlukso_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
-SOURCES = $(mDNSBrowse_SOURCES)
+SOURCES = $(findFlukso_SOURCES)
 
 all: all-am
 
@@ -171,9 +171,9 @@ clean-binPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-mDNSBrowse$(EXEEXT): $(mDNSBrowse_OBJECTS) $(mDNSBrowse_DEPENDENCIES) 
-	@rm -f mDNSBrowse$(EXEEXT)
-	$(LINK) $(mDNSBrowse_LDFLAGS) $(mDNSBrowse_OBJECTS) $(mDNSBrowse_LDADD) $(LIBS)
+findFlukso$(EXEEXT): $(findFlukso_OBJECTS) $(findFlukso_DEPENDENCIES) 
+	@rm -f findFlukso$(EXEEXT)
+	$(LINK) $(findFlukso_LDFLAGS) $(findFlukso_OBJECTS) $(findFlukso_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core

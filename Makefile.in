@@ -98,20 +98,20 @@ am__quote = @am__quote@
 install_sh = @install_sh@
 INCLUDES = -I$(top_srcdir)/include/
 LDADD = $(top_srcdir)/src/lib/howl/libhowl.la $(PLATFORM_LIBS)
-bin_PROGRAMS = mDNSBrowse
-mDNSBrowse_SOURCES = browse.c
+bin_PROGRAMS = findFlukso
+findFlukso_SOURCES = findFlukso.cpp
 subdir = samples/console/browse
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/howl_config.h
 CONFIG_CLEAN_FILES =
-bin_PROGRAMS = mDNSBrowse$(EXEEXT)
+bin_PROGRAMS = findFlukso$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
-am_mDNSBrowse_OBJECTS = browse.$(OBJEXT)
-mDNSBrowse_OBJECTS = $(am_mDNSBrowse_OBJECTS)
-mDNSBrowse_LDADD = $(LDADD)
-mDNSBrowse_DEPENDENCIES = $(top_srcdir)/src/lib/howl/libhowl.la
-mDNSBrowse_LDFLAGS =
+am_findFlukso_OBJECTS = browse.$(OBJEXT)
+findFlukso_OBJECTS = $(am_findFlukso_OBJECTS)
+findFlukso_LDADD = $(LDADD)
+findFlukso_DEPENDENCIES = $(top_srcdir)/src/lib/howl/libhowl.la
+findFlukso_LDFLAGS =
 
 DEFS = @DEFS@
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/include
@@ -121,17 +121,17 @@ LIBS = @LIBS@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 @AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/browse.Po
-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+COMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) \
 	$(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CCLD = $(CC)
+CCLD = $(CXX)
 LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 CFLAGS = @CFLAGS@
-DIST_SOURCES = $(mDNSBrowse_SOURCES)
+DIST_SOURCES = $(findFlukso_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
-SOURCES = $(mDNSBrowse_SOURCES)
+SOURCES = $(findFlukso_SOURCES)
 
 all: all-am
 
@@ -171,9 +171,9 @@ clean-binPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-mDNSBrowse$(EXEEXT): $(mDNSBrowse_OBJECTS) $(mDNSBrowse_DEPENDENCIES) 
-	@rm -f mDNSBrowse$(EXEEXT)
-	$(LINK) $(mDNSBrowse_LDFLAGS) $(mDNSBrowse_OBJECTS) $(mDNSBrowse_LDADD) $(LIBS)
+findFlukso$(EXEEXT): $(findFlukso_OBJECTS) $(findFlukso_DEPENDENCIES) 
+	@rm -f findFlukso$(EXEEXT)
+	$(LINK) $(findFlukso_LDFLAGS) $(findFlukso_OBJECTS) $(findFlukso_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
