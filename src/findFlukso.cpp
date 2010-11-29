@@ -7,7 +7,7 @@ extern "C" {
 #include <fstream>
 #include <string>
 
-#define DEBUG
+bool debug = false;
 
 std::map<std::string, std::string> ip_map;
 
@@ -38,9 +38,8 @@ add_resolver(
 	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
 	ip_map[ip_address] = (std::string) name;
 
-	#ifdef DEBUG
-	std::cout << name << "(" << ip_address << ") added." << std::endl;
-	#endif
+	if (debug)
+		std::cout << name << "(" << ip_address << ") added." << std::endl;
 
 	return err;
 }
@@ -72,9 +71,8 @@ rem_resolver(
 	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
 	ip_map.erase(ip_address);
 
-	#ifdef DEBUG
-	std::cout << name << "(" << ip_address << ") removed." << std::endl;
-	#endif
+	if (debug)
+		std::cout << name << "(" << ip_address << ") removed." << std::endl;
 
 	return err;
 }
@@ -92,7 +90,8 @@ my_browser(
 {
 	sw_discovery_resolve_id rid;
 
-	#ifdef DEBUG
+	if (debug)
+	{
 		switch (status)
 		{
 			case SW_DISCOVERY_BROWSE_INVALID:
@@ -117,7 +116,7 @@ my_browser(
 				std::cout << "result: browse remove service (" << name << "[" << type << "])" << std::endl;
 				break;
 		}
-	#endif
+	}
 
 	if (status == SW_DISCOVERY_BROWSE_ADD_SERVICE)
 	{
@@ -139,32 +138,23 @@ my_browser(
 
 int findFlukso(
 		char* type,
-		char* filename)
+		char* filename,
+		sw_ulong timeout)
 {
 	sw_discovery		discovery;
 	sw_discovery_oid	oid;
 	sw_result			err;
 	bool run = true;
 
-	std::cout << "1" << std::endl;
-
-	sw_ulong timeout = 5000; //in msecs
-
 	err = sw_discovery_init(&discovery);
 	sw_check_okay(err, exit);
-
-	std::cout << "2" << std::endl;
 
 	sw_salt salt;
 	err = sw_discovery_salt(discovery, &salt);
 	sw_check_okay(err, exit);
 
-	std::cout << "3" << std::endl;
-
 	err = sw_discovery_browse(discovery, 0, type, NULL, my_browser, NULL, &oid);
 	sw_check_okay(err, exit);
-
-	std::cout << "4" << std::endl;
 
 	while (run)
 	{
@@ -172,14 +162,13 @@ int findFlukso(
 
 		std::ofstream file;
 		file.open(filename);
-		#ifdef DEBUG
+		if (debug)
 			std::cout << "Map size: " << ip_map.size() << std::endl;
-		#endif
+
 		for (std::map<std::string, std::string>::iterator ii=ip_map.begin(); ii!=ip_map.end(); ++ii)
 		{
-			#ifdef DEBUG
+			if (debug)
 				std::cout << (*ii).first << ":" << (*ii).second << std::endl;
-			#endif
 			file << (*ii).first << ":" << (*ii).second << std::endl;
 		}
 		file.close();
@@ -195,13 +184,52 @@ int main(
 	int		argc,
 	char	**	argv)
 {
-	if (argc == 3)
+	int timeout = 0;
+	int result = 1;
+
+	if (argc == 2 && !strcmp(argv[1], "-h"))
 	{
-		return findFlukso(argv[1], argv[2]);
+		std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout])" << std::endl;
+		std::cout << std::endl;
+		std::cout << "Specific options:" << std::endl;
+		std::cout << "\t service \t service string published by the device (default: _flukso-realtime._tcp)" << std::endl;
+		std::cout << "\t file \t\t file to write the ip addresses of found devices to (default: /tmp/flukso)" << std::endl;
+		std::cout << "\t timeout \t time interval between writing to file in milliseconds. If set to 0 the program only runs once. (default: 5000)" << std::endl;
+		return 0;
+	}
+
+	if (argc > 1 && !strcmp(argv[1], "-d"))
+	{
+		debug = true;
+		switch (argc)
+		{
+			case 5:
+				timeout = atoi(argv[4]);
+				if (debug)
+					std::cout << "Timeout: " << timeout << std::endl;
+			case 4:
+				result = findFlukso(argv[2], argv[3], timeout);
+				break;
+			default:
+				std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout]) (" << argv[0] << " -h for more information)" << std::endl;
+				break;
+		}
 	}
 	else
 	{
-		std::cout << "Usage: findFlukso [service] [file]" << std::endl;
-		return 1;
+		switch (argc)
+		{
+			case 4:
+				timeout = atoi(argv[3]);
+				if (debug)
+					std::cout << "Timeout: " << timeout << std::endl;
+			case 3:
+				result = findFlukso(argv[1], argv[2], timeout);
+				break;
+			default:
+				std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout]) (" << argv[0] << " -h for more information)" << std::endl;
+				break;
+		}
 	}
+	return result;
 }
