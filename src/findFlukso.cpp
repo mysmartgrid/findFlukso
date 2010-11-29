@@ -184,7 +184,7 @@ int main(
 	int		argc,
 	char	**	argv)
 {
-	int timeout = 0;
+	int timeout = 5000;
 	int result = 1;
 
 	if (argc == 2 && !strcmp(argv[1], "-h"))
@@ -192,8 +192,8 @@ int main(
 		std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout])" << std::endl;
 		std::cout << std::endl;
 		std::cout << "Specific options:" << std::endl;
-		std::cout << "\t service \t service string published by the device (default: _flukso-realtime._tcp)" << std::endl;
-		std::cout << "\t file \t\t file to write the ip addresses of found devices to (default: /tmp/flukso)" << std::endl;
+		std::cout << "\t service \t service string published by the device (e.g. _flukso-realtime._tcp)" << std::endl;
+		std::cout << "\t file \t\t file to write the ip addresses of found devices to (e.g.: /tmp/flukso)" << std::endl;
 		std::cout << "\t timeout \t time interval between writing to file in milliseconds. If set to 0 the program only runs once. (default: 5000)" << std::endl;
 		return 0;
 	}
