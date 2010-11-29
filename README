@@ -1,0 +1,6 @@
+findFlukso is a tool that uses mDNS to find flukso's in a local network. It is designed to run on a chumby and therefore uses the mDNS implementation HOWL.
+
+Installation
+------------
+
+To build this project simply run make in the root directory. If Howl isn't found try setting HOWL_HOME.
