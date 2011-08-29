@@ -30,7 +30,7 @@ extern "C" {
 #include <fstream>
 #include <string>
 
-bool debug = false;
+//#define DEBUG
 
 std::map<std::string, std::string> ip_map;
 
@@ -61,8 +61,9 @@ add_resolver(
 	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
 	ip_map[ip_address] = (std::string) name;
 
-	if (debug)
-		std::cout << name << "(" << ip_address << ") added." << std::endl;
+	#ifdef DEBUG
+	std::cout << name << "(" << ip_address << ") added." << std::endl;
+	#endif
 
 	return err;
 }
@@ -94,8 +95,9 @@ rem_resolver(
 	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
 	ip_map.erase(ip_address);
 
-	if (debug)
-		std::cout << name << "(" << ip_address << ") removed." << std::endl;
+	#ifdef DEBUG
+	std::cout << name << "(" << ip_address << ") removed." << std::endl;
+	#endif
 
 	return err;
 }
@@ -113,8 +115,7 @@ my_browser(
 {
 	sw_discovery_resolve_id rid;
 
-	if (debug)
-	{
+	#ifdef DEBUG
 		switch (status)
 		{
 			case SW_DISCOVERY_BROWSE_INVALID:
@@ -139,7 +140,7 @@ my_browser(
 				std::cout << "result: browse remove service (" << name << "[" << type << "])" << std::endl;
 				break;
 		}
-	}
+	#endif
 
 	if (status == SW_DISCOVERY_BROWSE_ADD_SERVICE)
 	{
@@ -161,13 +162,14 @@ my_browser(
 
 int findFlukso(
 		char* type,
-		char* filename,
-		sw_ulong timeout)
+		char* filename)
 {
 	sw_discovery		discovery;
 	sw_discovery_oid	oid;
 	sw_result			err;
 	bool run = true;
+
+	sw_ulong timeout = 5000; //in msecs
 
 	err = sw_discovery_init(&discovery);
 	sw_check_okay(err, exit);
@@ -185,14 +187,13 @@ int findFlukso(
 
 		std::ofstream file;
 		file.open(filename);
-		if (debug)
+		#ifdef DEBUG
 			std::cout << "Map size: " << ip_map.size() << std::endl;
-
+		#endif
 		for (std::map<std::string, std::string>::iterator ii=ip_map.begin(); ii!=ip_map.end(); ++ii)
 		{
-			if (debug)
-				std::cout << (*ii).first << ":" << (*ii).second << std::endl;
-			file << (*ii).first << ":" << (*ii).second << std::endl;
+			std::cout << (*ii).first << ":" << (*ii).second << std::endl;
+			file << (*ii).first << std::endl;
 		}
 		file.close();
 	}
@@ -207,52 +208,13 @@ int main(
 	int		argc,
 	char	**	argv)
 {
-	int timeout = 5000;
-	int result = 1;
-
-	if (argc == 2 && !strcmp(argv[1], "-h"))
+	if (argc == 3)
 	{
-		std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout])" << std::endl;
-		std::cout << std::endl;
-		std::cout << "Specific options:" << std::endl;
-		std::cout << "\t service \t service string published by the device (e.g. _flukso-realtime._tcp)" << std::endl;
-		std::cout << "\t file \t\t file to write the ip addresses of found devices to (e.g.: /tmp/flukso)" << std::endl;
-		std::cout << "\t timeout \t time interval between writing to file in milliseconds. If set to 0 the program only runs once. (default: 5000)" << std::endl;
-		return 0;
-	}
-
-	if (argc > 1 && !strcmp(argv[1], "-d"))
-	{
-		debug = true;
-		switch (argc)
-		{
-			case 5:
-				timeout = atoi(argv[4]);
-				if (debug)
-					std::cout << "Timeout: " << timeout << std::endl;
-			case 4:
-				result = findFlukso(argv[2], argv[3], timeout);
-				break;
-			default:
-				std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout]) (" << argv[0] << " -h for more information)" << std::endl;
-				break;
-		}
+		return findFlukso(argv[1], argv[2]);
 	}
 	else
 	{
-		switch (argc)
-		{
-			case 4:
-				timeout = atoi(argv[3]);
-				if (debug)
-					std::cout << "Timeout: " << timeout << std::endl;
-			case 3:
-				result = findFlukso(argv[1], argv[2], timeout);
-				break;
-			default:
-				std::cout << "Usage: " << argv[0] << " [service] [file] ([timeout]) (" << argv[0] << " -h for more information)" << std::endl;
-				break;
-		}
+		std::cout << "Usage: findFlukso [service] [file]" << std::endl;
+		return 1;
 	}
-	return result;
 }
