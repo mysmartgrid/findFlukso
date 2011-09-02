@@ -28,6 +28,7 @@ extern "C" {
 #include <map>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 //#define DEBUG
