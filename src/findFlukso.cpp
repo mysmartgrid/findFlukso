@@ -58,8 +58,11 @@ add_resolver(
 
 	sw_discovery_cancel(discovery, oid);
 	
-	std::string ip_address = (std::string) sw_ipv4_address_name(address, (char*) name_buf, 16);
-	ip_map[ip_address] = (std::string) name;
+	std::stringstream ip_address;
+	ip_address << sw_ipv4_address_name(address, (char*) name_buf, 16);
+	ip_address << ":";
+	ip_address << port;
+	ip_map[ip_address.str()] = (std::string) name;
 
 	#ifdef DEBUG
 	std::cout << name << "(" << ip_address << ") added." << std::endl;
