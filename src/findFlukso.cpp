@@ -49,10 +49,8 @@ add_resolver(
 				sw_uint32		text_record_len,
 				sw_opaque_t		extra)
 {
-	//sw_text_record_iterator				it;
+	sw_text_record_iterator				it;
 	sw_int8						name_buf[16];
-	//sw_int8						key[SW_TEXT_RECORD_MAX_LEN];
-	//sw_int8						sval[SW_TEXT_RECORD_MAX_LEN];
 	//sw_uint8					oval[SW_TEXT_RECORD_MAX_LEN];
 	//sw_uint32					oval_len;
 	sw_result					err = SW_OKAY;
@@ -64,6 +62,25 @@ add_resolver(
 	ip_address << ":";
 	ip_address << port;
 	ip_map[ip_address.str()] = (std::string) name;
+
+	#ifdef DEBUG
+		if (sw_text_record_iterator_init(&it, text_record, text_record_len) !=- SW_OKAY)
+		{
+			fprintf(stderr, "init failed\n");
+			return err;
+		}
+
+		char						key[SW_TEXT_RECORD_MAX_LEN];
+		sw_octet					val[SW_TEXT_RECORD_MAX_LEN];
+		sw_ulong					val_len;
+
+		while (sw_text_record_iterator_next(it, key, val, &val_len) == SW_OKAY && key != "")
+		{
+			std::cout << "txt-record found: " << key << "=" << val << std::endl;
+		}
+
+		sw_text_record_iterator_fina(it);
+	#endif
 
 	#ifdef DEBUG
 	std::cout << name << "(" << ip_address << ") added." << std::endl;
