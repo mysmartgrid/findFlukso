@@ -62,6 +62,15 @@ if (HOWL_FOUND)
 	message(STATUS "HOWL: '${HOWL_LIBRARY}' -I${HOWL_INCLUDE_DIR} -I${HOWL_INCLUDE_DIRS}")
 endif(HOWL_FOUND)
 
+include(FindFlukso)
+if (FLUKSO_FOUND)
+	include_directories(${FLUKSO_INCLUDE_DIR})
+	include_directories(${FLUKSO_INCLUDE_DIRS})
+	link_directories(${FLUKSO_LIBRARY_DIR})
+	link_libraries(${FLUKSO_LIBRARY})
+	message(STATUS "LIBFLUKSO: '${FLUKSO_LIBRARY}' -I${FLUKSO_INCLUDE_DIR} -I${FLUKSO_INCLUDE_DIRS}")
+endif(FLUKSO_FOUND)
+
 # curl library
 include(FindCurl)
 if (CURL_FOUND)
@@ -99,7 +108,6 @@ if (JSON_FOUND)
 endif(JSON_FOUND)
 
 # Reflect the package structure
-add_subdirectory(libflukso)
 add_subdirectory(src)
 
 # add some files to the installation target

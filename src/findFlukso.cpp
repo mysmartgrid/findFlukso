@@ -31,6 +31,9 @@ extern "C" {
 #include <sstream>
 #include <string>
 #include "config.hpp"
+#include "flukso.hpp"
+#include "formatter.hpp"
+#include "outputfilter.hpp"
 
 #define DEBUG
 
@@ -121,7 +124,12 @@ add_resolver(
 			config->setBaseurl("http://"+ip_address.str()+path+"/");
 			config->setSensorId(id);
 			config->setTimeInterval("minute");
-			config->setOutputFilename("/tmp/flukso/last_minute");
+			config->setFormatterType("chumby-current");
+			config->setFilterType("file");
+			config->setOutputFilename("/tmp/flukso/last_reading");
+			#ifdef DEBUG
+				config->enableVerbose();
+			#endif
 		}
 
 		sw_text_record_iterator_fina(it);
@@ -262,6 +270,25 @@ int findFlukso(
 			file << (*ii).first << std::endl;
 		}
 		file.close();
+
+		if (config)
+		{
+			try {
+				Flukso::Webservice::Ptr webservice(new Flukso::Webservice(config));
+				Flukso::TimeseriesPtr ts(webservice->get_values());
+				Flukso::Formatter::Ptr formatter = Flukso::Formatter::buildFormatter(config, ts);
+				Flukso::OutputFilter::Ptr filter = Flukso::OutputFilter::buildFilter(config);
+				filter->render(formatter);
+			} catch (Flukso::GenericException ge) {
+				std::cout << "Failed to retrieve values, reason:" << std::endl 
+					<< "  " << ge.reason() << std::endl;
+				//return -1;
+			}	catch (std::exception e) {
+				std::cout << "Unknown exception occured, reason:" << std::endl
+					<< "  " << e.what() << std::endl;
+				//return -2;
+			}
+		}
 	}
 
 	return 0;

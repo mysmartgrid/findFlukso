@@ -140,19 +140,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named flukso
-
-# Build rule for target.
-flukso: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 flukso
-.PHONY : flukso
-
-# fast build rule for target.
-flukso/fast:
-	$(MAKE) -f libflukso/CMakeFiles/flukso.dir/build.make libflukso/CMakeFiles/flukso.dir/build
-.PHONY : flukso/fast
-
-#=============================================================================
 # Target rules for targets named findFlukso
 
 # Build rule for target.
@@ -177,7 +164,6 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... flukso"
 	@echo "... findFlukso"
 .PHONY : help
 
