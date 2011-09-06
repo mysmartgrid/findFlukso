@@ -62,10 +62,45 @@ if (HOWL_FOUND)
 	message(STATUS "HOWL: '${HOWL_LIBRARY}' -I${HOWL_INCLUDE_DIR} -I${HOWL_INCLUDE_DIRS}")
 endif(HOWL_FOUND)
 
+# curl library
+include(FindCurl)
+if (CURL_FOUND)
+  include_directories(${CURL_INCLUDE_DIR})
+  include_directories(${CURL_INCLUDE_DIRS})
+  link_directories(${CURL_LIBRARY_DIR})
+  link_libraries(${CURL_LIBRARY_SHARED})
+  message(STATUS "CURL: '${CURL_LIBRARY_SHARED}' -I${CURL_INCLUDE_DIR} -I${CURL_INCLUDE_DIRS}")
+endif(CURL_FOUND)
+
+include(FindPopt)
+if (POPT_FOUND)
+  include_directories(${POPT_INCLUDE_DIR})
+  include_directories(${POPT_INCLUDE_DIRS})
+  link_directories(${POPT_LIBRARY_DIR})
+  #IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  #  # there's a broken popt library in macports right now - only do
+  #  # dynamic linking. this version seems to be ok.
+  #  link_libraries(${POPT_LIBRARY_SHARED})
+  #ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    link_libraries(${POPT_LIBRARY_SHARED})
+	#ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  message(STATUS "POPT: '${POPT_LIBRARY}' + '${POPT_LIBRARY_SHARED}' -I${POPT_INCLUDE_DIR} -I${POPT_INCLUDE_DIRS}")
+else(POPT_FOUND)
+  message(STATUS "POPT: No popt library found!")
+endif(POPT_FOUND)
+
+include(FindJSON)
+if (JSON_FOUND)
+  include_directories(${JSON_INCLUDE_DIR})
+  include_directories(${JSON_INCLUDE_DIRS})
+  link_directories(${JSON_LIBRARY_DIR})
+  link_libraries(${JSON_LIBRARY})
+  message(STATUS "JSON: '${JSON_LIBRARY}' -I${JSON_INCLUDE_DIR} -I${JSON_INCLUDE_DIRS}")
+endif(JSON_FOUND)
+
 # Reflect the package structure
+add_subdirectory(libflukso)
 add_subdirectory(src)
-	#add_subdirectory(libflukso)
-#add_subdirectory(src)
 
 # add some files to the installation target
 #INSTALL(FILES README LICENSE DESTINATION share/doc/libflukso)

@@ -30,10 +30,12 @@ extern "C" {
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "config.hpp"
 
-//#define DEBUG
+#define DEBUG
 
 std::map<std::string, std::string> ip_map;
+Flukso::Config::Ptr config;
 
 static sw_result HOWL_API
 add_resolver(
@@ -115,6 +117,11 @@ add_resolver(
 		if ( id.length() > 0 && path.length() > 0 && version.length() > 0 )
 		{
 			std::cout << "url: http://" << ip_address.str() << path << "/" << id << "?interval=minute&unit=watt&version=" << version << std::endl;
+			config = Flukso::Config::Ptr(new Flukso::Config());
+			config->setBaseurl("http://"+ip_address.str()+path+"/");
+			config->setSensorId(id);
+			config->setTimeInterval("minute");
+			config->setOutputFilename("/tmp/flukso/last_minute");
 		}
 
 		sw_text_record_iterator_fina(it);
