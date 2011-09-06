@@ -74,16 +74,54 @@ add_resolver(
 		sw_octet					val[SW_TEXT_RECORD_MAX_LEN];
 		sw_ulong					val_len;
 
+		std::string id, path, version = "";
+		std::stringstream temp;
+
 		while (sw_text_record_iterator_next(it, key, val, &val_len) == SW_OKAY && key != "")
 		{
-			std::cout << "txt-record found: " << key << "=" << val << std::endl;
+			std::string keystring = std::string(key);
+			if ( keystring.compare("id1") == 0 )
+			{
+				temp.str("");
+				temp << val;
+				id = temp.str();
+				std::cout << "id1: " << id << std::endl;
+			}
+			else if ( keystring.compare("id2") == 0 && id.length() == 0 )
+			{
+				temp.str("");
+				temp << val;
+				id = temp.str();
+				std::cout << "id2: " << id << std::endl;
+			}
+			else if ( keystring.compare("path") == 0 )
+			{
+				temp.str("");
+				temp << val;
+				path = temp.str();
+				std::cout << "path: " << path << std::endl;
+			}
+			else if ( keystring.compare("version") == 0 )
+			{
+				temp.str("");
+				temp << val;
+				version = temp.str();
+				std::cout << "version: " << val << std::endl;
+			}
+			else
+				std::cout << "txt-record found: '" << key << "'=" << val << std::endl;
+		}
+
+		if ( id.length() > 0 && path.length() > 0 && version.length() > 0 )
+		{
+			std::cout << "url: http://" << ip_address.str() << path << "/" << id << "?interval=minute&unit=watt&version=" << version << std::endl;
 		}
 
 		sw_text_record_iterator_fina(it);
 	#endif
 
 	#ifdef DEBUG
-	std::cout << name << "(" << ip_address << ") added." << std::endl;
+	std::cout << name << "(" << ip_address.str() << ") added." << std::endl;
 	#endif
 
 	return err;
